@@ -1,4 +1,63 @@
 .allMainContent {
-  border: 2px solid red;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+.allMainContent .login-signup-card {
+  width: 800px;
+  margin: auto;
+  height: 450px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 15px;
+  -webkit-box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 12px rgba(255, 255, 255, 0.19);
+          box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 12px rgba(255, 255, 255, 0.19);
+}
+
+.allMainContent .login-signup-card .login-signup-content {
+  background-color: white;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  color: #7C29E8;
+}
+
+.allMainContent .login-signup-card .login-signup-content .loginForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.allMainContent .login-signup-card .login-signup-content .loginForm .input {
+  width: 60%;
+  margin-bottom: 20px;
+  height: 30px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
+  padding: 0px;
+  font-size: 18px;
+}
+
+.allMainContent .login-signup-card .login-signup-content .loginForm .loginSignupButton {
+  background-color: #7C29E8;
+  width: 60%;
+  height: 40px;
+  font-size: 24px;
+  color: white;
+  border-radius: 15px;
+  border: none;
 }
 /*# sourceMappingURL=Main.css.map */
