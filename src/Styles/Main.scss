@@ -1,3 +1,53 @@
 .allMainContent {
-  border: 2px solid red;
+  // border: 2px solid red;
+  margin-top: 0px;
+  padding-top: 0px;
+
+  .login-signup-card {
+    // border: 2px solid white;
+    width: 800px;
+    margin: auto;
+    height: 450px;
+    display: flex;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 12px rgba(255, 255, 255, 0.19);
+
+
+    .login-signup-content {
+      background-color: white;
+      flex: 1;
+      color: #7C29E8;
+
+      .loginForm {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .input {
+          width: 60%;
+          margin-bottom: 20px;
+          height: 30px;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+          outline: none;
+          padding: 0px;
+          font-size: 18px;
+
+        }
+
+        .loginSignupButton {
+          background-color: #7C29E8;
+          width: 60%;
+          height: 40px;
+          font-size: 24px;
+          color: white;
+          border-radius: 15px;
+          border: none;
+          // padding: 0px;
+        }
+      }
+    }
+  }
 }
