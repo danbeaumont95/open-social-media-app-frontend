@@ -1,29 +1,75 @@
+/* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable no-unused-vars */
+
 import React, { useState } from 'react';
 import '../Styles/Main.css';
 import Image from '../Assets/Images/all-social-media.png';
+import UserService from '../Services/user';
+
+interface UserToRegister {
+  email: string;
+  password: string;
+  first_name: string;
+  last_name: string;
+}
+
+interface UserToLogin {
+  email: string;
+  password: string;
+}
 
 type Props = {
 
 };
+
 type State = {
   showLogin: boolean;
   showSignUp: boolean;
+  userToRegister: UserToRegister;
+  userToLogin: UserToLogin;
 };
 
 const Main: React.FC<Props> = () => {
   const [showLogin, setShowLogin] = useState(true);
   const [showSignUp, setShowSignUp] = useState(false);
+  const [userToRegister, setUserToRegister] = useState<UserToRegister>({
+    first_name: '', last_name: '', email: '', password: '',
+  });
+  const [userToLogin, setUserToLogin] = useState<UserToLogin>({
+    email: '', password: '',
+  });
 
   const handleSignUpChange = () => {
     setShowSignUp(true);
     setShowLogin(false);
+    setUserToRegister({
+      email: '', password: '', first_name: '', last_name: '',
+    });
   };
   const handleLoginChange = () => {
     setShowLogin(true);
     setShowSignUp(false);
+    setUserToLogin({ email: '', password: '' });
+  };
+
+  const handleChangeUser = (event: any) => {
+    setUserToRegister({
+      ...userToRegister,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log('handle submit called');
+    const {
+      first_name, last_name, email, password,
+    } = userToRegister;
+    UserService.register(first_name, last_name, email, password).then((res) => {
+      console.log(res, 'ress');
+    });
   };
 
   return (
@@ -36,7 +82,7 @@ const Main: React.FC<Props> = () => {
       }}
     >
       <h2 style={{
-        marginTop: 0, paddingTop: '20px', paddingBottom: '20px', color: 'white',
+        marginTop: 0, paddingTop: '20px', paddingBottom: '20px', color: 'floralwhite',
       }}
       >
         Open Social Media App
@@ -47,31 +93,31 @@ const Main: React.FC<Props> = () => {
             <>
               <h2>Login</h2>
 
-              <form action="submit" className="loginForm">
-                <input type="text" className="input" placeholder="Email" />
-                <input type="password" className="input" placeholder="Password" />
+              <form action="submit" className="loginForm" onSubmit={handleSubmit}>
+                <input type="text" className="input" placeholder="Email" onChange={handleChangeUser} name="email" />
+                <input type="password" className="input" placeholder="Password" onChange={handleChangeUser} name="password" />
                 <h4>Forgotten your password?</h4>
                 <button type="submit" className="loginSignupButton">Log in!</button>
               </form>
               <h4 style={{ color: 'black' }} onClick={handleSignUpChange}>
                 Dont have an account?
-                <span style={{ color: '#7C29E8' }}> Sign up now</span>
+                <span style={{ color: '#7C29E8', cursor: 'pointer' }}> Sign up now</span>
               </h4>
             </>
           ) : (
             <>
               <h2>Sign up</h2>
               <form action="submit" className="loginForm">
-                <input type="text" className="input" placeholder="First Name" />
-                <input type="text" className="input" placeholder="Last Name" />
-                <input type="text" className="input" placeholder="Email" />
-                <input type="password" className="input" placeholder="Password" />
+                <input type="text" className="input" placeholder="First Name" onChange={handleChangeUser} name="first_name" />
+                <input type="text" className="input" placeholder="Last Name" onChange={handleChangeUser} name="last_name" />
+                <input type="text" className="input" placeholder="Email" onChange={handleChangeUser} name="email" />
+                <input type="password" className="input" placeholder="Password" onChange={handleChangeUser} name="password" />
                 <button type="submit" className="loginSignupButton">Sign up!</button>
               </form>
 
               <h4 style={{ color: 'black' }} onClick={handleLoginChange}>
                 Already have an account?
-                <span style={{ color: '#7C29E8' }}> Log in now</span>
+                <span style={{ color: '#7C29E8', cursor: 'pointer' }}> Log in now</span>
               </h4>
             </>
           )}
