@@ -5,8 +5,10 @@
 
 import React, { useState } from 'react';
 import '../Styles/Main.css';
+import { ToastContainer, toast } from 'react-toastify';
 import Image from '../Assets/Images/all-social-media.png';
 import UserService from '../Services/user';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface UserToRegister {
   email: string;
@@ -41,6 +43,9 @@ const Main: React.FC<Props> = () => {
     email: '', password: '',
   });
 
+  const notify = () => toast('Signed up successfully!');
+  const notifyLogin = (str: string) => toast(str);
+
   const handleSignUpChange = () => {
     setShowSignUp(true);
     setShowLogin(false);
@@ -61,14 +66,37 @@ const Main: React.FC<Props> = () => {
     });
   };
 
+  const handleChangeUserLogin = (event: any) => {
+    setUserToLogin({
+      ...userToLogin,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log('handle submit called');
     const {
       first_name, last_name, email, password,
     } = userToRegister;
     UserService.register(first_name, last_name, email, password).then((res) => {
-      console.log(res, 'ress');
+      if (res.data.Success) {
+        notify();
+      }
+    });
+  };
+
+  const handleLoginSubmit = (e: any) => {
+    e.preventDefault();
+    const {
+      email, password,
+    } = userToLogin;
+    UserService.login(email, password).then((res) => {
+      if (res.data.Error) {
+        notifyLogin(res.data.Error);
+      }
+      if (res.data.access) {
+        notifyLogin('logged in successfully');
+      }
     });
   };
 
@@ -89,13 +117,14 @@ const Main: React.FC<Props> = () => {
       </h2>
       <div className="login-signup-card">
         <div className="login-signup-content">
+          <ToastContainer />
           {showLogin ? (
             <>
               <h2>Login</h2>
 
-              <form action="submit" className="loginForm" onSubmit={handleSubmit}>
-                <input type="text" className="input" placeholder="Email" onChange={handleChangeUser} name="email" />
-                <input type="password" className="input" placeholder="Password" onChange={handleChangeUser} name="password" />
+              <form className="loginForm" onSubmit={handleLoginSubmit}>
+                <input type="text" className="input" placeholder="Email" onChange={handleChangeUserLogin} name="email" />
+                <input type="password" className="input" placeholder="Password" onChange={handleChangeUserLogin} name="password" />
                 <h4>Forgotten your password?</h4>
                 <button type="submit" className="loginSignupButton">Log in!</button>
               </form>
@@ -107,7 +136,7 @@ const Main: React.FC<Props> = () => {
           ) : (
             <>
               <h2>Sign up</h2>
-              <form action="submit" className="loginForm">
+              <form className="loginForm" onSubmit={handleSubmit}>
                 <input type="text" className="input" placeholder="First Name" onChange={handleChangeUser} name="first_name" />
                 <input type="text" className="input" placeholder="Last Name" onChange={handleChangeUser} name="last_name" />
                 <input type="text" className="input" placeholder="Email" onChange={handleChangeUser} name="email" />
