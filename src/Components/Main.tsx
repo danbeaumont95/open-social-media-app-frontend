@@ -79,6 +79,7 @@ const Main: React.FC<Props> = () => {
       first_name, last_name, email, password,
     } = userToRegister;
     UserService.register(first_name, last_name, email, password).then((res) => {
+      console.log(res, 'res');
       if (res.data.Success) {
         notify();
       }
@@ -96,6 +97,8 @@ const Main: React.FC<Props> = () => {
       }
       if (res.data.access) {
         notifyLogin('logged in successfully');
+        localStorage.setItem('loginAccessToken', res.data.access);
+        localStorage.setItem('loginRefreshToken', res.data.refresh);
       }
     });
   };
