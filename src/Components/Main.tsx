@@ -91,6 +91,7 @@ const Main: React.FC<Props> = () => {
     const {
       email, password,
     } = userToLogin;
+    // eslint-disable-next-line consistent-return
     UserService.login(email, password).then((res) => {
       if (res.data.Error) {
         notifyLogin(res.data.Error);
@@ -99,6 +100,8 @@ const Main: React.FC<Props> = () => {
         notifyLogin('logged in successfully');
         localStorage.setItem('loginAccessToken', res.data.access);
         localStorage.setItem('loginRefreshToken', res.data.refresh);
+        // eslint-disable-next-line no-return-assign
+        return window.location.href = '/home';
       }
     });
   };
