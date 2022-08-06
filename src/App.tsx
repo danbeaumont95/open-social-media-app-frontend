@@ -5,6 +5,7 @@ import {
   Route,
 } from 'react-router-dom';
 import './App.css';
+import Home from './Components/Home';
 import Main from './Components/Main';
 
 const App = () => (
@@ -13,6 +14,7 @@ const App = () => (
     <Router>
       <Routes>
         <Route path="/" element={<Main />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </Router>
   </div>
