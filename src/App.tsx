@@ -7,6 +7,7 @@ import {
 import './App.css';
 import Home from './Components/Home';
 import Main from './Components/Main';
+import Profile from './Components/Profile';
 
 const App = () => (
   <div className="App">
@@ -15,6 +16,7 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   </div>
