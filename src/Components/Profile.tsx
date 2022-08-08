@@ -1,9 +1,11 @@
+/* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import '../Styles/Profile.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 import { FaUserLock } from 'react-icons/fa';
-// import UserService from '../Services/user';
+import UserService from '../Services/user';
 
 const Profile = () => {
   console.log('hi');
@@ -14,6 +16,13 @@ const Profile = () => {
   });
   const [buttonTitle, setButtonTitle] = useState<String>('Edit');
   const [showForm, setShowForm] = useState<Boolean>(false);
+  // eslint-disable-next-line no-unused-vars
+  const [accessToken, setAccessToken]: any = useState(localStorage.getItem('loginAccessToken'));
+
+  const notify = () => toast('New passwords do not match!');
+  const notifySuccess = () => toast('Success! Password sucessfully changed');
+  const notifyError = () => toast('Error! Current password not correct');
+  const notifyOtherError = () => toast('Error! Unable to update password at this time');
 
   const handleChangeDetailsHandler = (event: any) => {
     setPasswordChange({
@@ -22,9 +31,29 @@ const Profile = () => {
     });
   };
 
+  // eslint-disable-next-line consistent-return
   const handleFormSubmit = (e: any) => {
     console.log(e, 'eeee');
-    // UserService.updatePassword()
+    e.preventDefault();
+    const userId: any = localStorage.getItem('userId');
+    const { old_password, new_password, re_typed_new_password } = passwordChange;
+    if (new_password !== re_typed_new_password) {
+      return notify();
+    }
+    UserService.updatePassword(userId, old_password, new_password, accessToken)
+      // eslint-disable-next-line consistent-return
+      .then((res) => {
+        console.log(res, 'res');
+        if (res.data.Success) {
+          return notifySuccess();
+        }
+
+        if (res.data.Error) {
+          return notifyError();
+        }
+        return notifyOtherError();
+      })
+      .catch(() => notifyOtherError());
   };
 
   const handleButtonClick = () => {
@@ -40,6 +69,7 @@ const Profile = () => {
   console.log(passwordChange, 'passwordChange');
   return (
     <div className="profileContainer">
+      <ToastContainer />
       <div className="loginContainer">Login</div>
       <div className="updatePasswordFormContainer">
         <div className="updatePasswordDiv">

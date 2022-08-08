@@ -17,10 +17,19 @@ const login = async (email: string, password: string) => {
   return res;
 };
 
-const updatePassword = async (id: string, old_password: string, new_password: string) => {
+const updatePassword = async (
+  id: string,
+  old_password: string,
+  new_password: string,
+  token: string,
+) => {
   const res = await axios.post(`${url}/users/${id}/update_password/`, {
     old_password,
     new_password,
+  }, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
   });
   return res;
 };
