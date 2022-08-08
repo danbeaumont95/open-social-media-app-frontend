@@ -100,6 +100,7 @@ const Main: React.FC<Props> = () => {
         notifyLogin('logged in successfully');
         localStorage.setItem('loginAccessToken', res.data.access);
         localStorage.setItem('loginRefreshToken', res.data.refresh);
+        localStorage.setItem('userId', res.data.id);
         // eslint-disable-next-line no-return-assign
         return window.location.href = '/home';
       }
