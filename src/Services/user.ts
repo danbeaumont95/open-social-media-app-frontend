@@ -34,10 +34,19 @@ const updatePassword = async (
   return res;
 };
 
+const getMe = async (token: string) => {
+  const res = await axios.get(`${url}/user/getMe/`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
 const UserService = {
   register,
   login,
   updatePassword,
+  getMe,
 };
 
 export default UserService;
