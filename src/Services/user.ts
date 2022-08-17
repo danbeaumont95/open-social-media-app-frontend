@@ -42,11 +42,29 @@ const getMe = async (token: string) => {
   });
   return res;
 };
+
+const updateDetails = async (
+  id: string,
+  email: string,
+  name: string,
+  token: string,
+) => {
+  const res = await axios.post(`${url}/users/${id}/update_details/`, {
+    email,
+    name,
+  }, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
 const UserService = {
   register,
   login,
   updatePassword,
   getMe,
+  updateDetails,
 };
 
 export default UserService;

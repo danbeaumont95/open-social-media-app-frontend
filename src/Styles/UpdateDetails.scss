@@ -25,13 +25,15 @@
       .editButton {
         margin-right: 40px;
         margin-left: auto;
-        background-color: #F5F6F7;
-        color: #4B4F55;
+        background-color: #2CD0F1;
+        // color: #4B4F55;
+        color: white;
         height: 30px;
         margin-top: auto;
         margin-bottom: auto;
         cursor: pointer;
         border: 1px solid lightslategrey;
+        border-radius: 3px;
       }
     }
 
