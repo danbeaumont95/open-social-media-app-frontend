@@ -36,8 +36,10 @@ const UpdateDetails = () => {
 
   const notify = () => toast('New passwords do not match!');
   const notifySuccess = () => toast('Success! Password sucessfully changed');
+  const notifyDetailsSuccess = () => toast('Success! Details sucessfully changed');
   const notifyError = () => toast('Error! Current password not correct');
   const notifyOtherError = () => toast('Error! Unable to update password at this time');
+  const notifyOtherDetailsError = () => toast('Error! Unable to update details at this time');
   const notifyUnableToGetUser = () => toast('Error! Unable to fetch user details');
 
   useEffect(() => {
@@ -118,6 +120,23 @@ const UpdateDetails = () => {
 
   const handleNameButtonClick = () => {
     setNameEditable((prevCheck) => !prevCheck);
+  };
+
+  const handleNameConfirmClick = (e: any) => {
+    e.preventDefault();
+    const { email, name } = user;
+    const userId: any = localStorage.getItem('userId');
+
+    UserService.updateDetails(userId, email, name, accessToken)
+      .then((res) => {
+        if (res.data.Success) {
+          setNameEditable((prevCheck) => !prevCheck);
+          return notifyDetailsSuccess();
+        }
+
+        return notifyOtherDetailsError();
+      })
+      .catch(() => notifyOtherDetailsError());
   };
 
   return (
@@ -206,9 +225,14 @@ const UpdateDetails = () => {
               className="editButton"
               type="button"
               onClick={handleNameButtonClick}
+              style={nameEditable ? { marginRight: '0px' } : { color: 'white' }}
             >
               {buttonTitle.length ? buttonTitle : 'Edit'}
+
             </button>
+            {nameEditable ? (
+              <button type="button" className="editButton" onClick={handleNameConfirmClick}>Confirm</button>
+            ) : null}
           </div>
 
         </div>
@@ -247,9 +271,15 @@ const UpdateDetails = () => {
               className="editButton"
               type="button"
               onClick={handleEmailButtonClick}
+              style={emailEditable ? { marginRight: '0px' } : { color: 'white' }}
             >
               {buttonTitle.length ? buttonTitle : 'Edit'}
             </button>
+
+            {emailEditable ? (
+              <button type="button" className="editButton" onClick={handleNameConfirmClick}>Confirm</button>
+
+            ) : null}
           </div>
 
         </div>
