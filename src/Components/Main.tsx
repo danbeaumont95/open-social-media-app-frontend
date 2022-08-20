@@ -43,8 +43,15 @@ const Main: React.FC<Props> = () => {
     email: '', password: '',
   });
 
-  const notify = () => toast('Signed up successfully!');
-  const notifyLogin = (str: string) => toast(str);
+  const notify = () => toast('Signed up successfully!', {
+    position: toast.POSITION.TOP_CENTER,
+  });
+  const notifyLogin = (str: string) => toast(str, {
+    position: toast.POSITION.TOP_CENTER,
+  });
+  const notifyForgottenPasswordClick = (str: string) => toast(str, {
+    position: toast.POSITION.TOP_CENTER,
+  });
 
   const handleSignUpChange = () => {
     setShowSignUp(true);
@@ -107,6 +114,10 @@ const Main: React.FC<Props> = () => {
     });
   };
 
+  const handleForgottenPasswordClick = (e: any) => {
+    notifyForgottenPasswordClick('Hoyaaa');
+  };
+
   return (
     <div
       className="allMainContent"
@@ -132,7 +143,7 @@ const Main: React.FC<Props> = () => {
               <form className="loginForm" onSubmit={handleLoginSubmit}>
                 <input type="text" className="input" placeholder="Email" onChange={handleChangeUserLogin} name="email" />
                 <input type="password" className="input" placeholder="Password" onChange={handleChangeUserLogin} name="password" />
-                <h4>Forgotten your password?</h4>
+                <h4 onClick={handleForgottenPasswordClick}>Forgotten your password?</h4>
                 <button type="submit" className="loginSignupButton">Log in!</button>
               </form>
               <h4 style={{ color: 'black' }} onClick={handleSignUpChange}>
