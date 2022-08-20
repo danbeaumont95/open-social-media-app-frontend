@@ -6,7 +6,9 @@ import React, { useState, useEffect } from 'react';
 import '../Styles/UpdateDetails.css';
 import { ToastContainer, toast } from 'react-toastify';
 
-import { FaUserLock, FaRegUser, FaEnvelope } from 'react-icons/fa';
+import {
+  FaUserLock, FaRegUser, FaEnvelope, FaWindowClose,
+} from 'react-icons/fa';
 import UserService from '../Services/user';
 
 interface User {
@@ -28,19 +30,35 @@ const UpdateDetails = () => {
   });
 
   const [buttonTitle, setButtonTitle] = useState<String>('Edit');
+  const [nameButtonTitle, setNameButtontitle] = useState<String>('Edit');
+  const [emailButtonTitle, setEmailButtontitle] = useState<String>('Edit');
   const [showForm, setShowForm] = useState<Boolean>(false);
   const [emailEditable, setEmailEditable] = useState<Boolean>(false);
   const [nameEditable, setNameEditable] = useState<Boolean>(false);
   // eslint-disable-next-line no-unused-vars
   const [accessToken, setAccessToken]: any = useState(localStorage.getItem('loginAccessToken'));
 
-  const notify = () => toast('New passwords do not match!');
-  const notifySuccess = () => toast('Success! Password sucessfully changed');
-  const notifyDetailsSuccess = () => toast('Success! Details sucessfully changed');
-  const notifyError = () => toast('Error! Current password not correct');
-  const notifyOtherError = () => toast('Error! Unable to update password at this time');
-  const notifyOtherDetailsError = () => toast('Error! Unable to update details at this time');
-  const notifyUnableToGetUser = () => toast('Error! Unable to fetch user details');
+  const notify = () => toast('New passwords do not match!', {
+    position: toast.POSITION.TOP_CENTER,
+  });
+  const notifySuccess = () => toast('Success! Password sucessfully changed', {
+    position: toast.POSITION.TOP_CENTER,
+  });
+  const notifyDetailsSuccess = () => toast('Success! Details sucessfully changed', {
+    position: toast.POSITION.TOP_CENTER,
+  });
+  const notifyError = () => toast('Error! Current password not correct', {
+    position: toast.POSITION.TOP_CENTER,
+  });
+  const notifyOtherError = () => toast('Error! Unable to update password at this time', {
+    position: toast.POSITION.TOP_CENTER,
+  });
+  const notifyOtherDetailsError = () => toast('Error! Unable to update details at this time', {
+    position: toast.POSITION.TOP_CENTER,
+  });
+  const notifyUnableToGetUser = () => toast('Error! Unable to fetch user details', {
+    position: toast.POSITION.TOP_CENTER,
+  });
 
   useEffect(() => {
     UserService.getMe(accessToken)
@@ -113,13 +131,24 @@ const UpdateDetails = () => {
       setShowForm((prevCheck) => !prevCheck);
     }
   };
-
-  const handleEmailButtonClick = () => {
-    setEmailEditable((prevCheck) => !prevCheck);
+  const handleNameButtonClick = () => {
+    if (nameButtonTitle === 'Edit') {
+      setNameButtontitle('Close');
+      setNameEditable((prevCheck) => !prevCheck);
+    } else {
+      setNameButtontitle('Edit');
+      setNameEditable((prevCheck) => !prevCheck);
+    }
   };
 
-  const handleNameButtonClick = () => {
-    setNameEditable((prevCheck) => !prevCheck);
+  const handleEmailButtonClick = () => {
+    if (emailButtonTitle === 'Edit') {
+      setEmailButtontitle('Close');
+      setEmailEditable((prevCheck) => !prevCheck);
+    } else {
+      setEmailButtontitle('Edit');
+      setEmailEditable((prevCheck) => !prevCheck);
+    }
   };
 
   const handleNameConfirmClick = (e: any) => {
@@ -221,13 +250,16 @@ const UpdateDetails = () => {
                 {user.name}
               </p>
             )}
+
             <button
               className="editButton"
               type="button"
               onClick={handleNameButtonClick}
               style={nameEditable ? { marginRight: '0px' } : { color: 'white' }}
             >
-              {buttonTitle.length ? buttonTitle : 'Edit'}
+              {nameButtonTitle === 'Edit' ? (
+                nameButtonTitle
+              ) : <FaWindowClose size={12} />}
 
             </button>
             {nameEditable ? (
@@ -273,7 +305,9 @@ const UpdateDetails = () => {
               onClick={handleEmailButtonClick}
               style={emailEditable ? { marginRight: '0px' } : { color: 'white' }}
             >
-              {buttonTitle.length ? buttonTitle : 'Edit'}
+              {/* {emailButtonTitle.length ? emailButtonTitle : 'Edit'} */}
+              {emailButtonTitle === 'Edit' ? emailButtonTitle : <FaWindowClose size={12} />}
+
             </button>
 
             {emailEditable ? (
