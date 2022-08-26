@@ -59,12 +59,18 @@ const updateDetails = async (
   });
   return res;
 };
+
+const getTweets = async () => {
+  const res = await axios.get(`${url}/twitter`);
+  return res;
+};
 const UserService = {
   register,
   login,
   updatePassword,
   getMe,
   updateDetails,
+  getTweets,
 };
 
 export default UserService;

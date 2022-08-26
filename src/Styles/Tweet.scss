@@ -1,0 +1,38 @@
+.tweetContainer {
+  width: 600px;
+  margin-bottom: 40px;
+  height: 140px;
+  max-height: 140px;
+  border-bottom: 1px solid grey;
+  border-top: 1px solid grey;
+  background-color: lavender;
+  // border-radius: 8px;
+
+  .tweetProfilePic {
+    float: left;
+    border-radius: 60px;
+    border: 2px solid lightgrey;
+    margin-top: 10px;
+    margin-left: 10px;
+
+    &:hover {
+      background-color: white;
+      cursor: pointer;
+      color: #7C29E8;
+
+    }
+  }
+
+  .likeIcon {
+    outline: black;
+    stroke: blue;
+    stroke-width: 20px;
+    color: lavender;
+
+    &:hover {
+      stroke: #7C29E8;
+      -webkit-box-shadow: 0 0 18px #7C29E8;
+      cursor: pointer;
+    }
+  }
+}

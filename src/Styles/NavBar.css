@@ -1,0 +1,26 @@
+.navbar {
+  background-color: #7C29E8;
+  height: 60px;
+  color: lightgrey;
+  position: relative;
+}
+
+.navbar .navbar_icon_container {
+  float: right;
+  padding-right: 10px;
+}
+
+.navbar .navbar_icon_container .icon {
+  display: inline-block;
+  border-radius: 60px;
+  padding: 0.5em 0.6em;
+  border: 2px solid lightgrey;
+  margin-top: 10px;
+}
+
+.navbar .navbar_icon_container .icon:hover {
+  background-color: white;
+  cursor: pointer;
+  color: #7C29E8;
+}
+/*# sourceMappingURL=NavBar.css.map */
