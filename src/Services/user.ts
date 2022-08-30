@@ -60,17 +60,31 @@ const updateDetails = async (
   return res;
 };
 
-const getTweets = async () => {
-  const res = await axios.get(`${url}/twitter`);
-  return res;
-};
+// const getTweets = async () => {
+//   const res = await axios.get(`${url}/twitter`);
+//   return res;
+// };
+
+// const addTweetToFavourites = async (id: string) => {
+//   const res = await axios.put(`${url}/addTweetAsFavourite`, {
+//     id,
+//   });
+//   return res;
+// };
+
+// const getMyFavourites = async () => {
+//   const res = await axios.get(`${url}/getMyTwitterFavourites`);
+//   return res;
+// };
 const UserService = {
   register,
   login,
   updatePassword,
   getMe,
   updateDetails,
-  getTweets,
+  // getTweets,
+  // addTweetToFavourites,
+  // getMyFavourites,
 };
 
 export default UserService;

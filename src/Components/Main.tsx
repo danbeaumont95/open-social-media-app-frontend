@@ -8,19 +8,8 @@ import '../Styles/Main.css';
 import { ToastContainer, toast } from 'react-toastify';
 import Image from '../Assets/Images/all-social-media.png';
 import UserService from '../Services/user';
+import { UserToRegister, UserToLogin } from '../Interfaces/interfaces';
 import 'react-toastify/dist/ReactToastify.css';
-
-interface UserToRegister {
-  email: string;
-  password: string;
-  first_name: string;
-  last_name: string;
-}
-
-interface UserToLogin {
-  email: string;
-  password: string;
-}
 
 type Props = {
 
@@ -86,7 +75,6 @@ const Main: React.FC<Props> = () => {
       first_name, last_name, email, password,
     } = userToRegister;
     UserService.register(first_name, last_name, email, password).then((res) => {
-      console.log(res, 'res');
       if (res.data.Success) {
         notify();
       }
