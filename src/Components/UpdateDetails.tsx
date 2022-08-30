@@ -5,17 +5,12 @@ import React, { useState, useEffect } from 'react';
 
 import '../Styles/UpdateDetails.css';
 import { ToastContainer, toast } from 'react-toastify';
-
 import {
   FaUserLock, FaRegUser, FaEnvelope, FaWindowClose,
 } from 'react-icons/fa';
 import UserService from '../Services/user';
+import { User } from '../Interfaces/interfaces';
 
-interface User {
-  name: string;
-  // last_name: string;
-  email: string;
-}
 const UpdateDetails = () => {
   const [passwordChange, setPasswordChange] = useState({
     old_password: '',
@@ -25,7 +20,6 @@ const UpdateDetails = () => {
 
   const [user, setUser] = useState<User>({
     name: '',
-    // last_name: '',
     email: '',
   });
 
